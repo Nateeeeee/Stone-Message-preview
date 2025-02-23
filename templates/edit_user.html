@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Usuário</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="form-container">
+        <h1>Editar Usuário</h1>
+        <form method="POST">
+            <label for="username">Nome de Usuário:</label>
+            <input type="text" name="username" value="{{ user.username }}" required>
+
+            <label for="is_admin">Admin:</label>
+            <input type="checkbox" name="is_admin" {% if user.is_admin %}checked{% endif %}>
+
+            <button type="submit">Salvar</button>
+        </form>
+        <p><a href="{{ url_for('admin_panel') }}">Voltar ao Painel de Admin</a></p>
+    </div>
+</body>
+</html>

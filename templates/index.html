@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LoveChat</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="chat-container">
+        <!-- Botão de menu no canto superior direito -->
+        <div class="menu-button" id="menuButton">⋮</div>
+        <div class="menu-dropdown" id="menuDropdown">
+            {% if is_admin %}
+                <a href="{{ url_for('admin_panel') }}">Painel de Admin</a>
+            {% endif %}
+            <a href="{{ url_for('logout') }}">Logout</a>
+            <a href="{{ url_for('change_password') }}">Mudar Senha</a>
+        </div>
+
+        <div class="chat-header">
+            <h1>LoveChat</h1>
+            <p>Bem-vindo, {{ username }}!</p>
+        </div>
+        <div class="chat-messages" id="messages">
+            {% for message in messages %}
+                <div class="message {% if message.username == username %}user{% else %}server{% endif %}">
+                    <strong>{{ message.username }}:</strong> {{ message.content }}
+                </div>
+            {% endfor %}
+        </div>
+        <div class="chat-input">
+            <input id="myMessage" autocomplete="off" placeholder="Digite sua mensagem..." />
+            <button id="sendBtn">Enviar</button>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
